@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retseptlar va Oshxona</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f2f6f5; --ink:#14232b; --muted:#52656d; --card:#ffffff; --line:#d5e1df;
+  --teal:#0f7b83; --teal-d:#0a5a60; --pom:#b7274a; --saf:#f2b134;
+  --hero-ink:#ffffff;
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0e1a1f; --ink:#e8f1f0; --muted:#9bb0b4; --card:#16272d; --line:#26404a; --teal:#2fb3bd; --teal-d:#1d8b94}
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:17px}
+a,button,input,summary{font:inherit}
+:focus-visible{outline:3px solid var(--saf);outline-offset:2px}
+
+/* Hero */
+.hero{background:var(--teal-d);color:var(--hero-ink);padding:clamp(32px,6vw,72px) 20px 0;position:relative;overflow:hidden}
+.hero-in{max-width:1100px;margin:0 auto}
+.brand{font-family:var(--display);font-weight:600;font-size:1.05rem;display:flex;align-items:center;gap:10px}
+.brand i{width:28px;height:28px;background:var(--saf);display:inline-block;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(2.3rem,7vw,4.6rem);line-height:1.03;margin:26px 0 14px;max-width:14ch;letter-spacing:-.02em}
+.hero p{max-width:46ch;color:#d4eceb;font-size:1.1rem}
+.search{margin:28px 0 36px;display:flex;max-width:560px;background:#fff;border-radius:999px;padding:6px;gap:6px}
+.search input{flex:1;min-width:0;border:0;background:none;padding:12px 18px;color:#14232b;font-size:1.05rem}
+.search input:focus-visible{outline:none}
+.search:focus-within{outline:3px solid var(--saf)}
+.search button{border:0;border-radius:999px;background:var(--pom);color:#fff;padding:0 22px;font-weight:600;cursor:pointer}
+.search button:hover{background:#951d3b}
+.ikat{height:26px;margin:0 -20px;
+  background:
+   conic-gradient(from 45deg at 50% 50%,var(--saf) 25%,transparent 0 50%,var(--pom) 0 75%,transparent 0) 0 0/26px 26px,
+   var(--teal-d)}
+
+/* Filters */
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.chip{flex:none;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 16px;cursor:pointer;font-weight:600;transition:background .15s,color .15s,border-color .15s}
+.chip small{opacity:.65;margin-left:6px;font-weight:400}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip:hover{border-color:var(--teal)}
+
+/* Grid */
+main{max-width:1100px;margin:0 auto;padding:28px 20px 64px}
+.count{color:var(--muted);margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:26px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:6px 6px 22px 22px;overflow:hidden;display:flex;flex-direction:column}
+.pic{margin:14px 14px 0;height:190px;border-radius:999px 999px 8px 8px;display:grid;place-items:center;font-size:5.2rem;position:relative;overflow:hidden}
+.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pic span{filter:drop-shadow(0 6px 8px rgba(0,0,0,.2))}
+.body{padding:16px 20px 20px;display:flex;flex-direction:column;gap:12px}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--muted);font-size:.92rem}
+.tag{font-weight:600;color:var(--cat)}
+.time{display:inline-flex;align-items:center;gap:6px;background:var(--bg);padding:3px 10px;border-radius:999px;color:var(--ink);font-weight:600}
+h2{font-family:var(--display);font-size:1.5rem;line-height:1.15}
+.card h3{font-size:1rem;font-weight:600;margin-bottom:6px}
+.ing{padding-left:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.ing li{border:1px dashed var(--line);border-radius:8px;padding:2px 10px;font-size:.93rem}
+details{border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;font-weight:600;color:var(--cat);list-style:none;display:flex;justify-content:space-between;padding:4px 0}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.3rem;line-height:1;transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+ol{padding-left:22px;display:grid;gap:8px;margin-top:8px}
+ol li::marker{color:var(--cat);font-weight:700}
+.empty{grid-column:1/-1;text-align:center;padding:56px 16px;border:2px dashed var(--line);border-radius:16px;color:var(--muted)}
+.empty b{display:block;color:var(--ink);font-family:var(--display);font-size:1.4rem;margin-bottom:6px}
+.empty button{margin-top:14px;border:0;background:var(--teal);color:#fff;padding:10px 20px;border-radius:999px;cursor:pointer;font-weight:600}
+footer{text-align:center;color:var(--muted);padding:28px 20px;border-top:1px solid var(--line);font-size:.95rem}
+
+/* kategoriya ranglari */
+[data-c=milliy]{--cat:var(--pom)}
+[data-c=salat]{--cat:#2f8a3f}
+[data-c=shirin]{--cat:#b9701a}
+[data-c=ichimlik]{--cat:var(--teal)}
+[data-c=milliy] .pic{background:linear-gradient(160deg,#f7c9d3,#f2a3b4)}
+[data-c=salat] .pic{background:linear-gradient(160deg,#d4efc6,#a6dc92)}
+[data-c=shirin] .pic{background:linear-gradient(160deg,#fde2ae,#f6c36a)}
+[data-c=ichimlik] .pic{background:linear-gradient(160deg,#bfe7ea,#8fd0d6)}
+@media (prefers-color-scheme:dark){[data-c=salat]{--cat:#6fd07f}[data-c=shirin]{--cat:#f0a64a}[data-c=milliy]{--cat:#f0708f}}
+@media (max-width:520px){body{font-size:16px}.search button{padding:0 16px}.grid{gap:20px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-in">
+    <div class="brand"><i aria-hidden="true"></i> Retseptlar va Oshxona</div>
+    <h1>Bugun dasturxonga nima tortamiz?</h1>
+    <p>Milliy taomlar, salatlar, shirinliklar va ichimliklar — masalliqlari va bosqichma-bosqich yoʻriqnomasi bilan.</p>
+    <form class="search" role="search" onsubmit="return false">
+      <input id="q" type="search" placeholder="Taom yoki masalliq nomi, masalan: sabzi" aria-label="Retsept qidirish" autocomplete="off">
+      <button type="button" id="go">Qidirish</button>
+    </form>
+  </div>
+  <div class="ikat" aria-hidden="true"></div>
+</header>
+
+<nav class="bar" aria-label="Kategoriyalar"><div class="bar-in" id="chips"></div></nav>
+
+<main>
+  <p class="count" id="count" aria-live="polite"></p>
+  <div class="grid" id="grid"></div>
+</main>
+<footer>Yoqimli ishtaha! Retseptlar 4 kishilik porsiya uchun moʻljallangan.</footer>
+
+<script>
+const CATS=[
+  {id:'all',n:'Barchasi'},
+  {id:'milliy',n:'Milliy taomlar'},
+  {id:'salat',n:'Salatlar'},
+  {id:'shirin',n:'Shirinliklar'},
+  {id:'ichimlik',n:'Ichimliklar'}
+];
+/* Rasm oʻrniga emoji ishlatilgan. Haqiqiy rasm qoʻshish uchun retseptga  img:'https://...'  maydonini yozing. */
+const R=[
+{c:'milliy',n:'Toshkent palovi',t:'2 soat',e:'🍚',
+ i:'Guruch 600 g;Mol goʻshti 500 g;Sabzi 600 g;Piyoz 2 ta;Oʻsimlik moyi 200 ml;Sarimsoq 1 bosh;Zira, tuz',
+ s:'Qozonda moyni qizdirib, piyozni qizarguncha qovuring.|Goʻshtni qoʻshib, 10 daqiqa qovuring.|Sabzini uzun qilib toʻgʻrab soling, tuz va zira seping.|Suv quyib, 40 daqiqa past olovda zirvak pishiring.|Yuvilgan guruchni tekis yoyib, ustiga suv quying.|Suv shimilgach, sarimsoqni ichiga botirib, qopqoq ostida 25 daqiqa damlang.'},
+{c:'milliy',n:'Goʻshtli somsa',t:'1 soat 30 daq',e:'🥟',
+ i:'Un 500 g;Qoʻy goʻshti 400 g;Piyoz 4 ta;Sariyogʻ 50 g;Tuxum 1 ta;Tuz, zira, qora murch',
+ s:'Un, suv va tuzdan qattiq xamir qorib, 30 daqiqa dam bering.|Goʻsht va piyozni mayda toʻgʻrab, tuz va ziradan qoʻshib aralashtiring.|Xamirni yupqa yoyib, kvadrat qilib kesing.|Ichiga qiyma solib, uchburchak shaklida yoping.|Tuxum surtib, 200° da 35 daqiqa pishiring.'},
+{c:'milliy',n:'Goʻshtli lagʻmon',t:'1 soat 20 daq',e:'🍜',
+ i:'Lagʻmon xamiri 400 g;Mol goʻshti 400 g;Bolgʻar qalampiri 2 ta;Sabzi 1 ta;Kartoshka 2 ta;Pomidor 3 ta;Sarimsoq, koʻkat',
+ s:'Goʻshtni moyda qovuring.|Sabzi, kartoshka va qalampirni toʻgʻrab qoʻshing.|Pomidor va suv solib, 40 daqiqa dam bering.|Lagʻmon xamirini qaynoq suvda pishirib, sovuq suvda chayib oling.|Lagʻmon ustiga sousni quyib, koʻkat bilan tortiladi.'},
+{c:'milliy',n:'Manti',t:'1 soat 15 daq',e:'🫓',
+ i:'Un 500 g;Goʻsht 500 g;Piyoz 4 ta;Qovoq 200 g;Tuz, qora murch;Suv 220 ml',
+ s:'Un, suv va tuzdan xamir qorib, 30 daqiqa dam bering.|Goʻsht, piyoz va qovoqni mayda toʻgʻrab, qiyma tayyorlang.|Xamirni yoyib kvadratlarga kesing, ichiga qiyma soling.|Chetlarini yopishtiring.|Moylangan qasqonga terib, bugʻda 45 daqiqa pishiring.'},
+{c:'salat',n:'Achichuk salati',t:'10 daqiqa',e:'🍅',
+ i:'Pomidor 4 ta;Piyoz 1 ta;Achchiq qalampir 1 ta;Rayhon yoki koʻk piyoz;Tuz 1 choy qoshiq',
+ s:'Pomidorni yupqa yarim halqa qilib toʻgʻrang.|Piyozni nozik toʻgʻrab, tuz bilan ezib, suvini siqing.|Hammasini aralashtirib, mayda toʻgʻralgan koʻkat seping.|10 daqiqa sovutib torting.'},
+{c:'salat',n:'Yengil sabzi salati',t:'15 daqiqa',e:'🥕',
+ i:'Sabzi 3 ta;Olma 1 ta;Yongʻoq 50 g;Limon sharbati 2 osh qoshiq;Asal 1 choy qoshiq;Zaytun moyi',
+ s:'Sabzi va olmani yirik randadan oʻtkazing.|Yongʻoqni maydalab, quruq tovada yengil qizdiring.|Limon sharbati, asal va moydan sous tayyorlang.|Hammasini aralashtirib, sous quying.'},
+{c:'salat',n:'Olivye',t:'35 daqiqa',e:'🥗',
+ i:'Kartoshka 3 ta;Sabzi 2 ta;Tuxum 4 ta;Tuzlangan bodring 3 ta;Goʻsht yoki kolbasa 250 g;Yashil noʻxat 1 banka;Mayonez',
+ s:'Kartoshka, sabzi va tuxumni qaynatib sovuting.|Barcha masalliqni bir xil mayda kubik qilib toʻgʻrang.|Noʻxat va mayonez qoʻshing.|Tuz va murch bilan ta’m berib, 1 soat sovuting.'},
+{c:'shirin',n:'Chak-chak',t:'50 daqiqa',e:'🍯',
+ i:'Un 400 g;Tuxum 4 ta;Asal 250 g;Shakar 100 g;Qovurish uchun moy',
+ s:'Tuxum, un va tuzdan xamir qorib, yupqa yoyib, choʻp shaklida kesing.|Qaynoq moyda tillarang boʻlguncha qovuring.|Asal va shakarni 5 daqiqa past olovda qaynating.|Qovurilgan boʻlaklarni sirop bilan aralashtiring.|Tovaga bosib shakl bering va qotiring.'},
+{c:'shirin',n:'Sutli halva',t:'25 daqiqa',e:'🍮',
+ i:'Un 150 g;Sariyogʻ 100 g;Sut 500 ml;Shakar 150 g;Yongʻoq 50 g',
+ s:'Sariyogʻda unni oltin rang boʻlguncha qovuring.|Sutda shakarni eritib, qaynoq sirop tayyorlang.|Siropni unga ingichka quyib, tinmay aralashtiring.|Quyuqlashgach, yongʻoq qoʻshib, idishga soling.'},
+{c:'shirin',n:'Yongʻoqli pishiriq',t:'45 daqiqa',e:'🍪',
+ i:'Un 300 g;Sariyogʻ 150 g;Shakar 100 g;Tuxum 2 ta;Yongʻoq 100 g;Qoʻl pishirgich 1 choy qoshiq',
+ s:'Yumshoq sariyogʻni shakar bilan ishqalang.|Tuxum, un va pishirgich qoʻshib xamir qoring.|Mayda toʻgʻralgan yongʻoqni soling.|Sharchalar yasab, qolipga terib, 180° da 20 daqiqa pishiring.'},
+{c:'ichimlik',n:'Limon-yalpizli koʻk choy',t:'10 daqiqa',e:'🍵',
+ i:'Koʻk choy 2 choy qoshiq;Yalpiz bargi 6 ta;Limon 2 boʻlak;Asal 1 osh qoshiq;Qaynoq suv 1 l',
+ s:'Choynakni qaynoq suv bilan chayib qoʻying.|Choy va yalpizni solib, suv quying.|5 daqiqa damlang.|Limon va asal qoʻshib, piyolalarga quying.'},
+{c:'ichimlik',n:'Ayron',t:'5 daqiqa',e:'🥛',
+ i:'Qatiq 300 g;Sovuq suv 500 ml;Tuz 1/2 choy qoshiq;Yalpiz yoki oʻt',
+ s:'Qatiq, suv va tuzni idishga soling.|Blender yoki sirpanchiq bilan yaxshilab aralashtiring.|Muzdek sovutib, yalpiz bilan torting.'},
+{c:'ichimlik',n:'Mevali kompot',t:'30 daqiqa',e:'🍑',
+ i:'Olma 2 ta;Shaftoli 3 ta;Gilos 200 g;Shakar 150 g;Suv 2 l',
+ s:'Mevalarni yuvib, boʻlaklarga boʻling.|Suvga shakar solib, qaynating.|Mevalarni qoʻshib, 15 daqiqa past olovda pishiring.|Oʻchirib, qopqoq ostida 2 soat dam bering va sovuting.'}
+];
+
+const $=s=>document.querySelector(s), grid=$('#grid'), q=$('#q');
+let cat='all';
+const esc=t=>t.replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const norm=t=>t.toLowerCase().replace(/[ʻʼ’‘`'´]/g,'').replace(/[ıİ]/g,'i');
+
+function chips(){
+  $('#chips').innerHTML=CATS.map(k=>{
+    const n=k.id==='all'?R.length:R.filter(r=>r.c===k.id).length;
+    return `<button class="chip" data-id="${k.id}" aria-pressed="${k.id===cat}">${k.n}<small>${n}</small></button>`;
+  }).join('');
+}
+function card(r){
+  const cn=CATS.find(k=>k.id===r.c).n;
+  const pic=r.img?`<img src="${esc(r.img)}" alt="${esc(r.n)}" loading="lazy">`:`<span role="img" aria-label="${esc(r.n)}">${r.e}</span>`;
+  return `<article class="card" data-c="${r.c}">
+    <div class="pic">${pic}</div>
+    <div class="body">
+      <div class="meta"><span class="tag">${cn}</span><span class="time">⏱ ${r.t}</span></div>
+      <h2>${esc(r.n)}</h2>
+      <div><h3>Masalliqlar</h3><ul class="ing">${r.i.split(';').map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+      <details><summary>Tayyorlash yoʻriqnomasi</summary><ol>${r.s.split('|').map(x=>`<li>${esc(x)}</li>`).join('')}</ol></details>
+    </div></article>`;
+}
+function render(){
+  const term=norm(q.value.trim());
+  const list=R.filter(r=>(cat==='all'||r.c===cat)&&(!term||norm(r.n+' '+r.i).includes(term)));
+  $('#count').textContent=list.length?`${list.length} ta retsept topildi`:'';
+  grid.innerHTML=list.length?list.map(card).join(''):
+    `<div class="empty"><b>Hech narsa topilmadi</b>Boshqa soʻz yozing yoki kategoriyani almashtiring.<br><button id="reset">Filtrlarni tozalash</button></div>`;
+}
+$('#chips').addEventListener('click',e=>{
+  const b=e.target.closest('.chip'); if(!b)return;
+  cat=b.dataset.id; chips(); render();
+});
+grid.addEventListener('click',e=>{ if(e.target.id==='reset'){q.value='';cat='all';chips();render();q.focus();} });
+q.addEventListener('input',render);
+$('#go').addEventListener('click',()=>{render();$('#chips').scrollIntoView({behavior:'smooth'});});
+chips(); render();
+</script>
+</body>
+</html>
